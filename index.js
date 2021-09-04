@@ -53,6 +53,20 @@ app.init = async () => {
 
     console.log(`Jono ivertinimas yra ${ratingAvarage} zvaigzdutes.`);
 
+    // **5.** _Isspausdinti, kokia yra vidutine kelioniu kaina_
+    sql = 'SELECT `price`, `distance` FROM `trips`';
+    [rows] = await connection.execute(sql);
+
+    let allPrice = 0;
+    let allDistance = 0;
+    for (let i = 0; i < rows.length; i++) {
+        allDistance += +rows[i].distance;
+        allPrice += +rows[i].price;
+    }
+    const avarageDistacePrice = allPrice / allDistance;
+
+    console.log(`Vidutine kelioniu kaina yra ${(avarageDistacePrice).toFixed(2)} EUR/km.`);
+
 }
 
 app.init();
